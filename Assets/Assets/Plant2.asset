@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be652cd6981b7c46b667be53529342d, type: 3}
+  m_Name: Plant2
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: f9f98f909de4d8249b9c167f1691ab91, type: 3}
+  - {fileID: 21300000, guid: a98f29fa5ed7e9940905b2fb24ff4ec6, type: 3}
+  - {fileID: 21300000, guid: cf17e04a68d32e749b2920aaaaf42e3f, type: 3}
+  - {fileID: 21300000, guid: e53e235d57b915f42a8dbb2de5ec7994, type: 3}
+  - {fileID: 21300000, guid: 47900ec9fa2f1e0438562a296d91c5e8, type: 3}
+  myDelay: 0.9
+  minMoney: 120
+  maxMoney: 150
+  myParticles: {fileID: 0}

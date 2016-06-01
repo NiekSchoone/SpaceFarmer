@@ -13,19 +13,14 @@ public class MoneyAndDust : MonoBehaviour
     private Text currencyText;
     [SerializeField]
     private Text dustText;
-
-    private float counterSpeed;
-    private float counter;
-    private int moneyCurve;
+    
+    private int step;
 
     void Start()
     {
         dustInBank = 0;
         moneyInBank = 600;
         targetMoney = moneyInBank;
-        counterSpeed = 100;
-        counter = 1;
-
         currencyText.text = moneyInBank.ToString();
         dustText.text = dustInBank.ToString();
     }
@@ -37,10 +32,13 @@ public class MoneyAndDust : MonoBehaviour
             return moneyInBank;
         }set
         {
-            targetMoney = value;
-            moneyCurve = Mathf.CeilToInt(targetMoney - moneyInBank) / 100;
-            if (moneyCurve <= 1) { moneyCurve = 1; }
-            if (targetMoney < moneyInBank){ moneyCurve = -moneyCurve; }
+            targetMoney += value;
+            step = moneyInBank - targetMoney;
+
+            if(step < 0)
+            {
+                step -= (step * 2);
+            }
             StartCoroutine(MoneyCounter());
             Debug.Log(targetMoney);
         }
@@ -52,7 +50,7 @@ public class MoneyAndDust : MonoBehaviour
             return dustInBank;
         }set
         {
-            dustInBank = value;
+            dustInBank += value;
             dustText.text = dustInBank.ToString();
         }
     }
@@ -61,13 +59,8 @@ public class MoneyAndDust : MonoBehaviour
     {
         while(moneyInBank != targetMoney)
         {
-            counter -= Time.deltaTime * counterSpeed;
-            if (counter <= 0)
-            {
-                moneyInBank+=moneyCurve;
-                currencyText.text = moneyInBank.ToString();
-                counter = 1;
-            }
+            moneyInBank = (int)Mathf.MoveTowards(moneyInBank, targetMoney, Time.deltaTime * step);
+            currencyText.text = moneyInBank.ToString();
             yield return null;
         }
     }

@@ -20,4 +20,8 @@ MonoBehaviour:
   myDelay: 0.9
   minMoney: 120
   maxMoney: 150
-  myParticles: {fileID: 0}
+  minDust: 0
+  maxDust: 0
+  dustParticle: {fileID: 181888, guid: 405f94c06743f9b449eec9bd25baa67d, type: 2}
+  plantParticles: {fileID: 123826, guid: 9a115bbb188052a46889e801b2b95f28, type: 2}
+  isAvailable: 0

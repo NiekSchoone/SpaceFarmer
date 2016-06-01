@@ -20,16 +20,12 @@ public class Lock : Tap
     [SerializeField]
     private  Button buyButton;
 
-    private MoneyAndDust money;
-
     void Awake()
     {
         if(!isLocked)
         {
             spriteRenderer.sprite = unlockedSprite;
         }
-
-        money = GameObject.Find("CurrencyHolder").GetComponent<MoneyAndDust>();
     }
 
 	void Start ()
@@ -60,9 +56,7 @@ public class Lock : Tap
         isLocked = false;
         spriteRenderer.sprite = unlockedSprite;
         myPot.enabled = true;
-        money.Money -= 500;
         DeactivateUI();
-        Debug.Log(money.Money);
     }
 
     public override void OnTapRelease()

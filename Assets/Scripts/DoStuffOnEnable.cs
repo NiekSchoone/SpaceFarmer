@@ -20,7 +20,7 @@ public class DoStuffOnEnable : MonoBehaviour
         textEndPosition = new Vector2(textStartPosition.x, (textStartPosition.y + 200));
         textStartColor = textObject.color;
         textEndColor = new Color(textStartColor.r, textStartColor.g, textStartColor.b, 0f);
-        duration = 4f;
+        duration = 1f;
         StartCoroutine(ShowText());
     }
     private IEnumerator ShowText()
@@ -35,5 +35,6 @@ public class DoStuffOnEnable : MonoBehaviour
             elapsedTime += Time.deltaTime * 1f;
             yield return null;
         }
+        Destroy(this.gameObject);
     }
 }

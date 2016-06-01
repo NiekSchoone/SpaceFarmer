@@ -14,12 +14,11 @@ public class Plant : Tap
     private SpriteRenderer spriteRenderer;
     private Sprite sprite;
 
-    private int profit;
+    private int cash;
+    private int dust;
 
     private MoneyAndDust money;
     
-    private ParticleSystem myParticles;
-
     [SerializeField]
     private GameObject FloatTextObject;
     private GameObject newFloatText;
@@ -32,14 +31,15 @@ public class Plant : Tap
 
         delay = asset.myDelay;
 
-        profit = Random.Range(asset.minMoney, asset.maxMoney);
+        cash = Random.Range(asset.minMoney, asset.maxMoney);
+        dust = Random.Range(asset.minDust, asset.maxDust);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         changeSprite(growPercentage);
 
         newFloatText = Instantiate(FloatTextObject, transform.position, Quaternion.identity) as GameObject;
-        newFloatText.GetComponentInChildren<Text>().text = "$ " + profit;
+        newFloatText.GetComponentInChildren<Text>().text = "$ " + cash;
     }
 
     void FixedUpdate()
@@ -74,42 +74,57 @@ public class Plant : Tap
         else if(percentage == 25)
         {
             spriteRenderer.sprite = asset.sprites[1];
-            DoParticles();
+            //DoParticles();
         }
         else if (percentage == 50)
         {
             spriteRenderer.sprite = asset.sprites[2];
-            DoParticles();
+            //DoParticles();
         }
         else if (percentage == 75)
         {
             spriteRenderer.sprite = asset.sprites[3];
-            DoParticles();
+            //DoParticles();
         }
         else if(percentage == 100)
         {
             spriteRenderer.sprite = asset.sprites[4];
-            DoParticles();
-        }
-    }
-
-    void DoParticles()
-    {
-        if (myParticles != null)
-        {
-            myParticles = this.gameObject.AddComponent<ParticleSystem>();
-            myParticles = asset.myParticles;
-            myParticles.Play();
+            //DoParticles();
         }
     }
 
     void SellPlant()
     {
+        DoParticles();
+        DoDust();
         newFloatText.SetActive(true);
-        money.Money += profit;
+        money.Money = cash;
         spriteRenderer.sprite = null;
         asset = null;
         newFloatText = null;
         this.enabled = false;
+    }
+
+    void DoParticles()
+    {
+        if (asset.plantParticles != null)
+        {
+            Instantiate(asset.plantParticles, this.transform.position, Quaternion.Euler(-90,0,0));
+        }
+    }
+    
+    void DoDust()
+    {
+        if(dust > 0)
+        {
+            int particleAmount = dust / 10;
+            Debug.Log(particleAmount);
+
+            for (int i = 0; i < particleAmount; i++)
+            {
+                GameObject newDustParticle = Instantiate(asset.dustParticle, this.transform.position, Quaternion.identity) as GameObject;
+                newDustParticle.GetComponent<MysteryDust>().Value = dust / particleAmount;
+            }
+        }
     }
 }

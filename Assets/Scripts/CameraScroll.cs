@@ -10,7 +10,6 @@ public class CameraScroll : MonoBehaviour
     // The ID of the touch that began the scroll.
     int ScrollTouchID = -1;
     // The position of that initial touch
-    Vector2 ScrollTouchOrigin;
 
     void Update()
     {
@@ -63,7 +62,6 @@ public class CameraScroll : MonoBehaviour
                 if (ScrollTouchID == -1)
                 {
                     ScrollTouchID = T.fingerId;
-                    ScrollTouchOrigin = T.position;
                 }
             }
             //Forget it when the touch ends

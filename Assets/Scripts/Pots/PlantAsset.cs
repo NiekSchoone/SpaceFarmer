@@ -10,7 +10,9 @@ public class PlantAsset : ScriptableObject
     public int minMoney, maxMoney;
     public int minDust, maxDust;
 
-    public ParticleSystem myParticles;
+    public GameObject dustParticle;
+
+    public GameObject plantParticles;
 
     public bool isAvailable;
 }
